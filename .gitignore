@@ -1,0 +1,3 @@
+.DS_Store
+venv/*
+budgeting/budgeting/settings.py
