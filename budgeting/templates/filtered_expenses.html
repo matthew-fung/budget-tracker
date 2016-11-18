@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Expenses for {{filtered_expenses.first.category}}</h1>
+<br />
+<a href="{% url 'tracker:get_all_expenses' %}">View All Expenses</a>
+<div class="container">
+  {% for obj in filtered_expenses %}
+  <div class="row">
+    <div class="col-sm-4">
+      {{ obj.log_date }}
+    </div>
+    <div class="col-sm-4">
+      {{ obj.amount }}
+    </div>
+    <div class="col-sm-4">
+      {{ obj.item }}
+    </div>
+  </div>
+  {% endfor %}
+</div>-
+
+{% endblock %}
