@@ -2,3 +2,4 @@
 venv/*
 budgeting/budgeting/settings.py
 budgeting/budgeting/__pycache__/*
+budgeting/tracker/migrations/*
