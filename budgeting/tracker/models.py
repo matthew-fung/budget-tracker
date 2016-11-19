@@ -9,7 +9,7 @@ class Expenses(models.Model):
     item = models.CharField(max_length = 75, default='item')
 
     class Meta:
-        ordering = ['amount']
+        ordering = ['-log_date']
 
     def __str__(self):
         output = "{0}: {1}, {2}, {3}".format(self.log_date,self.ID,self.category,self.amount)

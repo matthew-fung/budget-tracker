@@ -1,12 +1,52 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<h1>All Expenses</h1>
-{% for ID in latest_expense.all %}
-<li>
-    {{ID.category}}
-    {{ID.amount}}
-</li>
-{% endfor %}
 
+<div class="container">
+  <h2>All Expenses</h2>
+  <div class="table-wrapper">
+    <table class="alt">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Category</th>
+          <th>Item</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ID in latest_expense.all %}
+        <tr>
+          <td>{{ID.log_date}}</td>
+          <td>{{ID.category}}</td>
+          <td>{{ID.item}}</td>
+          <td>{{ID.amount}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2"></td>
+          <td>
+            Total spent to date:
+          </td>
+          <td>100.00</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div> <!--/table-wrapper-->
+
+  <div class="row">
+    <h3>View Expenses by Category:</h3>
+    <p>
+      Model form goes here
+    </p>
+  </div>
+
+  <div class="row">
+    <h3>Add an expense:</h3>
+    <p>
+      Add expense form goes here
+    </p>
+  </div>
+</div> <!--/container-->
 {% endblock %}
