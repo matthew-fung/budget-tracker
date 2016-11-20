@@ -10,6 +10,15 @@
 
 /* Basic */
 
+
+	body .bold{
+		font-weight:bold;
+	}
+
+	body .underline{
+		text-decoration: underline;
+	}
+
 	body {
 		background: #fff;
 	}

@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="container">
-  <h2>All Expenses</h2>
+  <h2>{{title}}</h2>
   <div class="table-wrapper">
     <table class="alt">
       <thead>
@@ -29,24 +29,29 @@
           <td>
             Total spent to date:
           </td>
-          <td>100.00</td>
+          <td class="underline bold">{{running_total.amount__sum}}</td>
         </tr>
       </tfoot>
     </table>
   </div> <!--/table-wrapper-->
 
   <div class="row">
+    <div class="expense-box">
     <h3>View Expenses by Category:</h3>
-    <p>
-      Model form goes here
-    </p>
+    <form method="post" action="" role="form">
+        {%csrf_token%}
+        {{chooseForm}}
+        <input type="submit" value="View" />
+    </form>
   </div>
-
-  <div class="row">
-    <h3>Add an expense:</h3>
-    <p>
-      Add expense form goes here
-    </p>
+  <div class="expense-box">
+    <h3>Expense Quick-add:</h3>
+    <form method="post" action="">
+    {{addForm}}
+    {% csrf_token %}
+    <input type="submit" value="Submit" />
+    </form>
+  </div>
   </div>
 </div> <!--/container-->
 {% endblock %}

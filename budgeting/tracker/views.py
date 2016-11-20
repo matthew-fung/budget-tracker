@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from .models import *
-from .forms import ExpensesForm
+from .forms import ExpensesForm, SelectForm
 from django.shortcuts import redirect
+from django.db.models import Sum
+
 
 # Create your views here.
 def index(request):
@@ -11,18 +13,36 @@ def index(request):
     return render(request,"index.html",context)
 
 def get_all_expenses(request):
-    latest_expense = Expenses.objects.all()
-    context={
-    "title":"Expenses",
-    'latest_expense':latest_expense
-    }
+    if request.method == "POST":
+        addForm = ExpensesForm(request.POST)
+        chooseForm = SelectForm(request.POST)
+        if addForm.is_valid():
+            addForm.save()
+            # return redirect('get_all_expenses')
+        if chooseForm.is_valid():
+            cat=request.POST.get('category')
+            return redirect('tracker:get_filtered_expenses',cat=cat)
+    else:
+        addForm = ExpensesForm()
+        chooseForm = SelectForm()
+        latest_expense = Expenses.objects.all()
+        running_total = Expenses.objects.aggregate(Sum('amount'))
+        context={
+        'title':'All Expenses',
+        'latest_expense':latest_expense,
+        'addForm':addForm,
+        'chooseForm':chooseForm,
+        'running_total':running_total,
+        }
     return render(request,"expenses.html",context)
 
 def get_filtered_expenses(request,cat):
     filtered_expenses=Expenses.objects.filter(category__exact=cat)
+    running_total = Expenses.objects.filter(category__exact=cat).aggregate(Sum('amount'))
     context={
-    "title":"Category Expenses",
-    "filtered_expenses":filtered_expenses,
+    'title':'Category Expenses',
+    'filtered_expenses':filtered_expenses,
+    'running_total':running_total,
     }
     return render(request,"filtered_expenses.html",context)
 
