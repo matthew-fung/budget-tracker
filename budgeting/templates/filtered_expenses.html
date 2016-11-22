@@ -35,6 +35,38 @@
       </tfoot>
     </table>
   </div> <!--/table-wrapper-->
+
+
+  <div class="row">
+    <div class="col-md-4">
+    <h3>View Expenses by Category:</h3>
+    <form method="post" action="" role="form">
+        {%csrf_token%}
+        <label>Category:</label>
+        <select name="category">
+          {%for x in categories%}
+          <option value="{{x.category}}">
+            {{x.category}}
+          </option>
+          {%endfor%}
+        </select>
+        <input type="submit" value="View" />
+    </form>
+  </div>
+
+    <div class="col-md-4">
+      <h3>{{filtered_expenses.first.category}} Expense Quick-add:</h3>
+      <form method="post" action="">
+      {% csrf_token %}
+      <label for="{{quickAddForm.amount.id_for_label}}">Amount:</label>
+      {{quickAddForm.amount}}
+      <label for="{{quickAddForm.item.id_for_label}}">Item:</label>
+      {{quickAddForm.item}}
+      <input type="hidden" name="category" value="{{filtered_expenses.first.category}}" />
+      <input type="submit" value="Submit" />
+      </form>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

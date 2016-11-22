@@ -40,7 +40,14 @@
     <h3>View Expenses by Category:</h3>
     <form method="post" action="" role="form">
         {%csrf_token%}
-        {{chooseForm}}
+        <label>Category:</label>
+        <select name="category">
+          {%for x in categories%}
+          <option value="{{x.category}}">
+            {{x.category}}
+          </option>
+          {%endfor%}
+        </select>
         <input type="submit" value="View" />
     </form>
   </div>
